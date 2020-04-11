@@ -13,13 +13,16 @@
         <el-menu-item index="1" :route="{ name: 'Home' }">
           Dashboard
         </el-menu-item>
-        <el-menu-item index="2" :route="{ name: 'MouldList' }">
+        <el-menu-item index="2" :route="{ name: 'MachineList' }">
+          Machines
+        </el-menu-item>
+        <el-menu-item index="3" :route="{ name: 'MouldList' }">
           Moulds
         </el-menu-item>
-        <el-menu-item index="3" :route="{ name: 'PartList' }">
+        <el-menu-item index="4" :route="{ name: 'PartList' }">
           Parts
         </el-menu-item>
-        <el-submenu index="4" class="pull-right">
+        <el-submenu index="5" class="pull-right">
           <template slot="title">
             {{ username }}
             <el-avatar>user</el-avatar>

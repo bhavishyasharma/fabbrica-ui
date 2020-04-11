@@ -2,7 +2,7 @@
   <el-row type="flex" class="row-bg" justify="center" align="middle">
     <el-col :span="12">
       <el-card>
-        <el-page-header @back="goBack" content="Mould List" />
+        <el-page-header @back="goBack" content="Machine List" />
         <el-divider />
         <el-row
           :gutter="20"
@@ -10,9 +10,9 @@
           class="row-bg space-below"
           justify="end"
         >
-          <router-link :to="{ name: 'AddMould' }">
+          <router-link :to="{ name: 'AddMachine' }">
             <el-button type="primary" icon="el-icon-plus" size="mini">
-              Add Mould
+              Add Machine
             </el-button>
           </router-link>
           <el-button
@@ -24,15 +24,16 @@
             Refresh
           </el-button>
         </el-row>
-        <el-table :data="moulds" border style="width: 100%">
+        <el-table :data="machines" border style="width: 100%">
           <el-table-column type="index" />
           <el-table-column label="Name" prop="name"></el-table-column>
-          <el-table-column label="Part" prop="part.name"></el-table-column>
+          <el-table-column label="Make" prop="make"></el-table-column>
+          <el-table-column label="model" prop="model"></el-table-column>
           <el-table-column type="expand">
             <template slot-scope="props">
               <p>Id: {{ props.row.id }}</p>
-              <p>Weight: {{ props.row.cavity }}</p>
-              <p>Color: {{ props.row.runnerWeight }} grams</p>
+              <p>Clamping Capacity: {{ props.row.clampingCapacity }} kN</p>
+              <p>Injection Volume: {{ props.row.injectionVolume }} CC</p>
             </template>
           </el-table-column>
         </el-table>
@@ -45,19 +46,17 @@
 import gql from 'graphql-tag';
 
 export default {
-  name: 'MouldList',
+  name: 'MachineList',
   apollo: {
-    moulds: gql`
+    machines: gql`
       query {
-        moulds {
+        machines {
           id
           name
-          part {
-            id
-            name
-          }
-          cavity
-          runnerWeight
+          make
+          model
+          clampingCapacity
+          injectionVolume
         }
       }
     `
@@ -67,7 +66,7 @@ export default {
       this.$router.go(-1);
     },
     onRefresh() {
-      this.$apollo.queries.moulds.refetch();
+      this.$apollo.queries.machines.refetch();
     }
   }
 };

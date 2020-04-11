@@ -2,6 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import EmptyRouter from '../views/EmptyRouter.vue';
+import MachineList from '../views/machine/MachineList.vue';
+import AddMachine from '../views/machine/AddMachine.vue';
 import MouldList from '../views/mould/MouldList.vue';
 import AddMould from '../views/mould/AddMould.vue';
 import PartList from '../views/part/PartList.vue';
@@ -22,6 +24,29 @@ const routes = [
     },
     children: [
       {
+        path: 'machine',
+        name: 'Machine',
+        component: EmptyRouter,
+        children: [
+          {
+            path: '',
+            name: 'MachineList',
+            component: MachineList,
+            meta: {
+              navIndex: '2'
+            }
+          },
+          {
+            path: 'add',
+            name: 'AddMachine',
+            component: AddMachine,
+            meta: {
+              navIndex: '2'
+            }
+          }
+        ]
+      },
+      {
         path: 'mould',
         name: 'Mould',
         component: EmptyRouter,
@@ -31,7 +56,7 @@ const routes = [
             name: 'MouldList',
             component: MouldList,
             meta: {
-              navIndex: '2'
+              navIndex: '3'
             }
           },
           {
@@ -39,7 +64,7 @@ const routes = [
             name: 'AddMould',
             component: AddMould,
             meta: {
-              navIndex: '2'
+              navIndex: '3'
             }
           }
         ]
@@ -54,7 +79,7 @@ const routes = [
             name: 'PartList',
             component: PartList,
             meta: {
-              navIndex: '3'
+              navIndex: '4'
             }
           },
           {
@@ -62,7 +87,7 @@ const routes = [
             name: 'AddPart',
             component: AddPart,
             meta: {
-              navIndex: '3'
+              navIndex: '4'
             }
           }
         ]
