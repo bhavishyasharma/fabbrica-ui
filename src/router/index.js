@@ -2,6 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import EmptyRouter from '../views/EmptyRouter.vue';
+import MouldList from '../views/mould/MouldList.vue';
+import AddMould from '../views/mould/AddMould.vue';
 import PartList from '../views/part/PartList.vue';
 import AddPart from '../views/part/AddPart.vue';
 import Login from '../views/Login.vue';
@@ -20,6 +22,29 @@ const routes = [
     },
     children: [
       {
+        path: 'mould',
+        name: 'Mould',
+        component: EmptyRouter,
+        children: [
+          {
+            path: '',
+            name: 'MouldList',
+            component: MouldList,
+            meta: {
+              navIndex: '2'
+            }
+          },
+          {
+            path: 'add',
+            name: 'AddMould',
+            component: AddMould,
+            meta: {
+              navIndex: '2'
+            }
+          }
+        ]
+      },
+      {
         path: 'part',
         name: 'Part',
         component: EmptyRouter,
@@ -29,7 +54,7 @@ const routes = [
             name: 'PartList',
             component: PartList,
             meta: {
-              navIndex: '2'
+              navIndex: '3'
             }
           },
           {
@@ -37,7 +62,7 @@ const routes = [
             name: 'AddPart',
             component: AddPart,
             meta: {
-              navIndex: '2'
+              navIndex: '3'
             }
           }
         ]
