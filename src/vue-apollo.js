@@ -10,6 +10,7 @@ Vue.use(VueApollo);
 
 // Name of the localStorage item
 const AUTH_TOKEN = 'accessToken';
+const REFRESH_TOKEN = 'refreshToken';
 
 // Http endpoint
 const httpEndpoint =
@@ -24,6 +25,7 @@ const defaultOptions = {
   wsEndpoint: null,
   // LocalStorage token
   tokenName: AUTH_TOKEN,
+  refreshTokenName: REFRESH_TOKEN,
   // Enable Automatic Query persisting with Apollo Engine
   persisting: false,
   // Use websockets for everything (no HTTP)

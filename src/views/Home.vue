@@ -5,17 +5,23 @@
         :default-active="activeMenuIndex"
         mode="horizontal"
         active-text-color="#2C2B60"
+        :router="true"
       >
         <el-menu-item style="color: red !important;">
           <img src="../assets/fabbrica.png" width="150" />
         </el-menu-item>
-        <el-menu-item index="1">Dashboard</el-menu-item>
-        <el-submenu index="2" class="pull-right">
+        <el-menu-item index="1" :route="{ name: 'Home' }">
+          Dashboard
+        </el-menu-item>
+        <el-menu-item index="2" :route="{ name: 'PartList' }">
+          Parts
+        </el-menu-item>
+        <el-submenu index="3" class="pull-right">
           <template slot="title">
             {{ username }}
             <el-avatar>user</el-avatar>
           </template>
-          <el-menu-item index="2-1" class="pull-right" @click="logoutClicked"
+          <el-menu-item class="pull-right" @click="logoutClicked"
             >Logout</el-menu-item
           >
         </el-submenu>
@@ -50,10 +56,19 @@ export default {
   },
   data() {
     return {
-      activeMenuIndex: '1',
+      activeMenuIndex: '',
       username: this.$store.state.user.username,
       roles: {}
     };
+  },
+  watch: {
+    // eslint-disable-next-line no-unused-vars
+    $route(to, from) {
+      this.activeMenuIndex = to.meta.navIndex;
+    }
+  },
+  mounted: function() {
+    this.activeMenuIndex = this.$route.meta.navIndex;
   },
   methods: {
     logoutClicked() {
@@ -71,6 +86,10 @@ export default {
 <style lang="scss" scoped>
 img {
   padding-top: 10px;
+}
+.el-container {
+  background-color: #f0f0f0;
+  height: 100%;
 }
 .el-header {
   padding: 0px;
