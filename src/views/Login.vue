@@ -1,7 +1,8 @@
 <template>
   <el-row type="flex" class="row-bg" justify="center" align="middle">
-    <el-col :span="6">
+    <el-col :xs="22" :sm="10" :md="8" :lg="6">
       <el-card>
+        <img src="../assets/fabbrica.png" width="180" />
         <el-form ref="form" :model="form" label-width="80px">
           <el-form-item label="Username">
             <el-input v-model="form.username"></el-input>
