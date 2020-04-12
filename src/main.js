@@ -9,6 +9,7 @@ import router from './router';
 import store from './store';
 import { createProvider } from './vue-apollo';
 import './plugins/element.js';
+import './assets/style.scss';
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);

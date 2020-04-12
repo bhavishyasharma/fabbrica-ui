@@ -177,9 +177,6 @@ img {
 .el-drawer__wrapper {
   top: 60px;
 }
-.el-drawer__body {
-  overflow: auto;
-}
 .drawer-menu {
   width: 200px;
 }

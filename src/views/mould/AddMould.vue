@@ -1,6 +1,6 @@
 <template>
   <el-row type="flex" class="row-bg" justify="center" align="middle">
-    <el-col :span="12">
+    <el-col :xs="22" :sm="18" :lg="12">
       <el-card>
         <el-form ref="form" :model="form" label-width="120px">
           <el-page-header @back="goBack" content="Add Mould" />
