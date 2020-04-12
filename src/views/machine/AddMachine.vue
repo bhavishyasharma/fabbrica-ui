@@ -18,6 +18,16 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
+              <el-form-item label="Company">
+                <el-select v-model="form.company" placeholder="Select">
+                  <el-option
+                    v-for="company in companies"
+                    v-bind:key="company.id"
+                    :value="company.id"
+                    :label="company.name"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
               <el-form-item label="Clamping Capacity">
                 <el-input-number
                   v-model="form.clampingCapacity"
@@ -55,12 +65,23 @@ import gql from 'graphql-tag';
 
 export default {
   name: 'AddMachine',
+  apollo: {
+    companies: gql`
+      query {
+        companies {
+          id
+          name
+        }
+      }
+    `
+  },
   data: function() {
     return {
       form: {
         name: '',
         make: '',
         model: '',
+        company: '',
         clampingCapacity: 0,
         injectionVolume: 0.0
       },
@@ -69,6 +90,7 @@ export default {
           $name: String!
           $make: String!
           $model: String!
+          $company: String!
           $clampingCapacity: Int!
           $injectionVolume: Decimal!
         ) {
@@ -76,6 +98,7 @@ export default {
             name: $name
             make: $make
             model: $model
+            company: $company
             clampingCapacity: $clampingCapacity
             injectionVolume: $injectionVolume
           ) {
@@ -84,6 +107,10 @@ export default {
               name
               make
               model
+              company {
+                id
+                name
+              }
               clampingCapacity
               injectionVolume
             }
@@ -104,6 +131,7 @@ export default {
             name: this.form.name,
             make: this.form.make,
             model: this.form.model,
+            company: this.form.company,
             clampingCapacity: this.form.clampingCapacity,
             injectionVolume: this.form.injectionVolume
           }

@@ -22,7 +22,13 @@
         <el-menu-item index="4" :route="{ name: 'PartList' }">
           Parts
         </el-menu-item>
-        <el-submenu index="5" class="pull-right">
+        <el-menu-item index="5" :route="{ name: 'CompanyList' }">
+          Companies
+        </el-menu-item>
+        <el-menu-item index="6" :route="{ name: 'UserList' }">
+          Users
+        </el-menu-item>
+        <el-submenu index="7" class="pull-right">
           <template slot="title">
             {{ username }}
             <el-avatar>user</el-avatar>

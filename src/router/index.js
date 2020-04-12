@@ -8,6 +8,10 @@ import MouldList from '../views/mould/MouldList.vue';
 import AddMould from '../views/mould/AddMould.vue';
 import PartList from '../views/part/PartList.vue';
 import AddPart from '../views/part/AddPart.vue';
+import CompanyList from '../views/company/CompanyList.vue';
+import AddCompany from '../views/company/AddCompany.vue';
+import UserList from '../views/user/UserList.vue';
+import AddUser from '../views/user/AddUser.vue';
 import Login from '../views/Login.vue';
 import store from '../store';
 
@@ -25,7 +29,6 @@ const routes = [
     children: [
       {
         path: 'machine',
-        name: 'Machine',
         component: EmptyRouter,
         children: [
           {
@@ -48,7 +51,6 @@ const routes = [
       },
       {
         path: 'mould',
-        name: 'Mould',
         component: EmptyRouter,
         children: [
           {
@@ -71,7 +73,6 @@ const routes = [
       },
       {
         path: 'part',
-        name: 'Part',
         component: EmptyRouter,
         children: [
           {
@@ -88,6 +89,50 @@ const routes = [
             component: AddPart,
             meta: {
               navIndex: '4'
+            }
+          }
+        ]
+      },
+      {
+        path: 'company',
+        component: EmptyRouter,
+        children: [
+          {
+            path: '',
+            name: 'CompanyList',
+            component: CompanyList,
+            meta: {
+              navIndex: '5'
+            }
+          },
+          {
+            path: 'add',
+            name: 'AddCompany',
+            component: AddCompany,
+            meta: {
+              navIndex: '5'
+            }
+          }
+        ]
+      },
+      {
+        path: 'user',
+        component: EmptyRouter,
+        children: [
+          {
+            path: '',
+            name: 'UserList',
+            component: UserList,
+            meta: {
+              navIndex: '6'
+            }
+          },
+          {
+            path: 'add',
+            name: 'AddUser',
+            component: AddUser,
+            meta: {
+              navIndex: '6'
             }
           }
         ]
