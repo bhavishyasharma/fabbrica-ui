@@ -4,39 +4,85 @@
       <el-menu
         :default-active="activeMenuIndex"
         mode="horizontal"
-        active-text-color="#2C2B60"
+        active-text-color="compactMenu ? #000 : #2C2B60"
         :router="true"
       >
         <el-menu-item style="color: red !important;">
           <img src="../assets/fabbrica.png" width="150" />
         </el-menu-item>
-        <el-menu-item index="1" :route="{ name: 'Home' }">
-          Dashboard
-        </el-menu-item>
-        <el-menu-item index="2" :route="{ name: 'MachineList' }">
-          Machines
-        </el-menu-item>
-        <el-menu-item index="3" :route="{ name: 'MouldList' }">
-          Moulds
-        </el-menu-item>
-        <el-menu-item index="4" :route="{ name: 'PartList' }">
-          Parts
-        </el-menu-item>
-        <el-menu-item index="5" :route="{ name: 'CompanyList' }">
-          Companies
-        </el-menu-item>
-        <el-menu-item index="6" :route="{ name: 'UserList' }">
-          Users
-        </el-menu-item>
-        <el-submenu index="7" class="pull-right">
-          <template slot="title">
-            {{ username }}
-            <el-avatar>user</el-avatar>
-          </template>
-          <el-menu-item class="pull-right" @click="logoutClicked"
-            >Logout</el-menu-item
+        <template v-if="!compactMenu">
+          <el-menu-item index="1" :route="{ name: 'Home' }">
+            Dashboard
+          </el-menu-item>
+          <el-menu-item index="2" :route="{ name: 'MachineList' }">
+            Machines
+          </el-menu-item>
+          <el-menu-item index="3" :route="{ name: 'MouldList' }">
+            Moulds
+          </el-menu-item>
+          <el-menu-item index="4" :route="{ name: 'PartList' }">
+            Parts
+          </el-menu-item>
+          <el-menu-item index="5" :route="{ name: 'CompanyList' }">
+            Companies
+          </el-menu-item>
+          <el-menu-item index="6" :route="{ name: 'UserList' }">
+            Users
+          </el-menu-item>
+          <el-submenu index="7" class="pull-right">
+            <template slot="title">
+              {{ username }}
+              <el-avatar>user</el-avatar>
+            </template>
+            <el-menu-item class="pull-right" @click="logoutClicked"
+              >Logout</el-menu-item
+            >
+          </el-submenu>
+        </template>
+        <template v-else>
+          <el-menu-item class="pull-right" @click="menuToggled">
+            <i v-if="!toggleMenu" class="el-icon-s-fold big-icon"></i>
+            <i v-else class="el-icon-s-unfold big-icon"></i>
+          </el-menu-item>
+          <el-drawer
+            :visible.sync="toggleMenu"
+            direction="rtl"
+            append-to-body
+            :show-close="false"
+            :with-header="false"
           >
-        </el-submenu>
+            <el-menu-item
+              index="1"
+              :route="{ name: 'Home' }"
+              class="drawer-menu"
+            >
+              Dashboard
+            </el-menu-item>
+            <el-menu-item index="2" :route="{ name: 'MachineList' }">
+              Machines
+            </el-menu-item>
+            <el-menu-item index="3" :route="{ name: 'MouldList' }">
+              Moulds
+            </el-menu-item>
+            <el-menu-item index="4" :route="{ name: 'PartList' }">
+              Parts
+            </el-menu-item>
+            <el-menu-item index="5" :route="{ name: 'CompanyList' }">
+              Companies
+            </el-menu-item>
+            <el-menu-item index="6" :route="{ name: 'UserList' }">
+              Users
+            </el-menu-item>
+            <el-submenu index="7">
+              <template slot="title">
+                My Profile
+              </template>
+              <el-menu-item class="pull-right" @click="logoutClicked"
+                >Logout</el-menu-item
+              >
+            </el-submenu>
+          </el-drawer>
+        </template>
       </el-menu>
     </el-header>
     <el-main>
@@ -68,7 +114,9 @@ export default {
   },
   data() {
     return {
-      activeMenuIndex: '',
+      activeMenuIndex: '10',
+      toggleMenu: false,
+      compactMenu: window.innerWidth < 950,
       username: this.$store.state.user.username,
       roles: {}
     };
@@ -82,6 +130,12 @@ export default {
   mounted: function() {
     this.activeMenuIndex = this.$route.meta.navIndex;
   },
+  created() {
+    window.addEventListener('resize', this.onResize);
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.onResize);
+  },
   methods: {
     logoutClicked() {
       onLogout(this.$apollo).then(() => {
@@ -90,6 +144,13 @@ export default {
           .then(() => this.$router.replace({ name: 'Login' }))
           .catch(err => console.log(err));
       });
+    },
+    menuToggled() {
+      this.toggleMenu = !this.toggleMenu;
+    },
+    onResize() {
+      console.log('Resize');
+      this.compactMenu = window.innerWidth < 950;
     }
   }
 };
@@ -105,8 +166,21 @@ img {
 }
 .el-header {
   padding: 0px;
+  z-index: 2017;
 }
 .pull-right {
   float: right;
+}
+.big-icon {
+  font-size: 2rem;
+}
+.el-drawer__wrapper {
+  top: 60px;
+}
+.el-drawer__body {
+  overflow: auto;
+}
+.drawer-menu {
+  width: 200px;
 }
 </style>
