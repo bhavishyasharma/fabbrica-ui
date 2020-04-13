@@ -59,7 +59,6 @@
                     <el-table
                       :data="props.row.roles"
                       border
-                      style="width: 100%"
                       class="mini-table right-table"
                     >
                       <el-table-column type="index" />

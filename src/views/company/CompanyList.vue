@@ -11,13 +11,16 @@
           justify="end"
         >
           <router-link :to="{ name: 'AddCompany' }">
-            <el-button type="primary" icon="el-icon-plus" size="mini">Add Company</el-button>
+            <el-button type="primary" icon="el-icon-plus" size="mini">
+              Add Company
+            </el-button>
           </router-link>
           <el-button
             icon="el-icon-refresh"
             @click="onRefresh"
             size="mini"
-            style="margin-left: 8px;">
+            style="margin-left: 8px;"
+          >
             Refresh
           </el-button>
         </el-row>
@@ -26,9 +29,37 @@
           <el-table-column label="Name" prop="name"></el-table-column>
           <el-table-column type="expand">
             <template slot-scope="props">
-              <p v-for="user in props.row.users" v-bind:key="user.id">
-                {{ user.id }}: {{ user.fullname }} @{{ user.username }}
-              </p>
+              <el-row type="flex" justify="end" class="space-below">
+                <el-button
+                  type="warning"
+                  @click="editCompany(props.row.id)"
+                  size="mini"
+                  icon="el-icon-edit"
+                  >Edit</el-button
+                >
+              </el-row>
+              <el-row>
+                <el-form label-width="100px" size="mini">
+                  <el-col :xs="24" :sm="12">
+                    <el-form-item label="Name">
+                      <el-input v-model="props.row.name" disabled="" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :xs="24" :sm="12">
+                    <el-table
+                      :data="props.row.users"
+                      border
+                      class="mini-table right-table"
+                    >
+                      <el-table-column label="Users">
+                        <el-table-column type="index" />
+                        <el-table-column label="Username" prop="username" />
+                        <el-table-column label="Fullname" prop="fullname" />
+                      </el-table-column>
+                    </el-table>
+                  </el-col>
+                </el-form>
+              </el-row>
             </template>
           </el-table-column>
         </el-table>
@@ -63,6 +94,12 @@ export default {
     },
     onRefresh() {
       this.$apollo.queries.companies.refetch();
+    },
+    editCompany(companyId) {
+      this.$router.push({
+        name: 'EditCompany',
+        params: { companyId: companyId }
+      });
     }
   }
 };

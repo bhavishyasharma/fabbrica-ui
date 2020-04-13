@@ -10,6 +10,7 @@ import PartList from '../views/part/PartList.vue';
 import AddPart from '../views/part/AddPart.vue';
 import CompanyList from '../views/company/CompanyList.vue';
 import AddCompany from '../views/company/AddCompany.vue';
+import EditCompany from '../views/company/EditCompany.vue';
 import UserList from '../views/user/UserList.vue';
 import AddUser from '../views/user/AddUser.vue';
 import EditUser from '../views/user/EditUser.vue';
@@ -110,6 +111,14 @@ const routes = [
             path: 'add',
             name: 'AddCompany',
             component: AddCompany,
+            meta: {
+              navIndex: '5'
+            }
+          },
+          {
+            path: 'edit/:companyId',
+            name: 'EditCompany',
+            component: EditCompany,
             meta: {
               navIndex: '5'
             }

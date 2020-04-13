@@ -4,18 +4,32 @@
 
 .mini-table {
   margin-bottom: 18px;
+  width: calc(100% - 18px);
 }
+
 .left-table {
   margin-right: 18px;
 }
+
 .right-table {
   margin-left: 18px;
+  margin-right: 100px;
 }
+
 .mini-table th {
   padding-top: 2px;
   padding-bottom: 2px;
 }
+
 .mini-table td {
   padding-top: 2px;
   padding-bottom: 2px;
+}
+
+.el-table thead.is-group th {
+  text-align: center;
+}
+
+.space-below {
+  margin-bottom: 8px;
 }
