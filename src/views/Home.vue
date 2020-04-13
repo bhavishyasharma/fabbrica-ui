@@ -4,7 +4,7 @@
       <el-menu
         :default-active="activeMenuIndex"
         mode="horizontal"
-        active-text-color="compactMenu ? #000 : #2C2B60"
+        active-text-color="#2C2B60"
         :router="true"
       >
         <el-menu-item style="color: red !important;">
@@ -176,8 +176,5 @@ img {
 }
 .el-drawer__wrapper {
   top: 60px;
-}
-.drawer-menu {
-  width: 200px;
 }
 </style>

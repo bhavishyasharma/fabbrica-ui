@@ -30,10 +30,53 @@
           <el-table-column label="Username" prop="username"></el-table-column>
           <el-table-column type="expand">
             <template slot-scope="props">
-              <p>Id: {{ props.row.id }}</p>
-              <p>Email: {{ props.row.email }}</p>
-              <p>Role: {{ props.row.roles }}</p>
-              <p>Companies: {{ props.row.companies }}</p>
+              <el-row type="flex" justify="end" class="space-below">
+                <el-button
+                  type="warning"
+                  @click="editUser(props.row.id)"
+                  size="mini"
+                  icon="el-icon-edit"
+                  >Edit</el-button
+                >
+              </el-row>
+              <el-row>
+                <el-form label-width="100px" size="mini">
+                  <el-col :xs="24" :sm="12">
+                    <el-form-item label="First Name">
+                      <el-input v-model="props.row.firstname" disabled="" />
+                    </el-form-item>
+                    <el-form-item label="Last Name">
+                      <el-input v-model="props.row.lastname" disabled="" />
+                    </el-form-item>
+                    <el-form-item label="username">
+                      <el-input v-model="props.row.username" disabled="" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :xs="24" :sm="12">
+                    <el-form-item label="Email">
+                      <el-input v-model="props.row.email" disabled="" />
+                    </el-form-item>
+                    <el-table
+                      :data="props.row.roles"
+                      border
+                      style="width: 100%"
+                      class="mini-table right-table"
+                    >
+                      <el-table-column type="index" />
+                      <el-table-column label="Roles" prop="label" />
+                    </el-table>
+                    <el-table
+                      :data="props.row.companies"
+                      border
+                      style="width: 100%"
+                      class="mini-table right-table"
+                    >
+                      <el-table-column type="index" />
+                      <el-table-column label="Companies" prop="name" />
+                    </el-table>
+                  </el-col>
+                </el-form>
+              </el-row>
             </template>
           </el-table-column>
         </el-table>
@@ -52,6 +95,8 @@ export default {
       query {
         users {
           id
+          firstname
+          lastname
           fullname
           username
           companies {
@@ -74,6 +119,9 @@ export default {
     },
     onRefresh() {
       this.$apollo.queries.users.refetch();
+    },
+    editUser(userId) {
+      this.$router.push({ name: 'EditUser', params: { userId: userId } });
     }
   }
 };

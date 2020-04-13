@@ -12,6 +12,7 @@ import CompanyList from '../views/company/CompanyList.vue';
 import AddCompany from '../views/company/AddCompany.vue';
 import UserList from '../views/user/UserList.vue';
 import AddUser from '../views/user/AddUser.vue';
+import EditUser from '../views/user/EditUser.vue';
 import Login from '../views/Login.vue';
 import store from '../store';
 
@@ -131,6 +132,14 @@ const routes = [
             path: 'add',
             name: 'AddUser',
             component: AddUser,
+            meta: {
+              navIndex: '6'
+            }
+          },
+          {
+            path: 'edit/:userId',
+            name: 'EditUser',
+            component: EditUser,
             meta: {
               navIndex: '6'
             }

@@ -14,7 +14,7 @@
                 <el-input v-model="form.lastname"></el-input>
               </el-form-item>
               <el-form-item label="username">
-                <el-input v-model="form.model"></el-input>
+                <el-input v-model="form.username"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">

@@ -1,3 +1,21 @@
 .el-drawer {
   overflow: scroll;
 }
+
+.mini-table {
+  margin-bottom: 18px;
+}
+.left-table {
+  margin-right: 18px;
+}
+.right-table {
+  margin-left: 18px;
+}
+.mini-table th {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.mini-table td {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
