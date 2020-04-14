@@ -8,6 +8,7 @@ import MouldList from '../views/mould/MouldList.vue';
 import AddMould from '../views/mould/AddMould.vue';
 import PartList from '../views/part/PartList.vue';
 import AddPart from '../views/part/AddPart.vue';
+import EditPart from '../views/part/EditPart.vue';
 import CompanyList from '../views/company/CompanyList.vue';
 import AddCompany from '../views/company/AddCompany.vue';
 import EditCompany from '../views/company/EditCompany.vue';
@@ -89,6 +90,14 @@ const routes = [
             path: 'add',
             name: 'AddPart',
             component: AddPart,
+            meta: {
+              navIndex: '4'
+            }
+          },
+          {
+            path: 'edit/:partId',
+            name: 'EditPart',
+            component: EditPart,
             meta: {
               navIndex: '4'
             }

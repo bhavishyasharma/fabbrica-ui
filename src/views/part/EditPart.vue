@@ -2,17 +2,16 @@
   <el-row type="flex" class="row-bg" justify="center" align="middle">
     <el-col :xs="22" :sm="18" :lg="12">
       <el-card>
-        <el-form ref="form" :model="form" label-width="80px">
-          <el-page-header @back="goBack" content="Add Part">
-          </el-page-header>
+        <el-form ref="form" :model="part" label-width="80px">
+          <el-page-header @back="goBack" content="Edit Part" />
           <el-divider />
           <el-row type="flex" class="row-bg" justify="start" align="top">
             <el-col :span="12">
               <el-form-item label="Part Name">
-                <el-input v-model="form.name"></el-input>
+                <el-input v-model="part.name"></el-input>
               </el-form-item>
               <el-form-item label="Material">
-                <el-select v-model="form.material" placeholder="Select">
+                <el-select v-model="part.material" placeholder="Select">
                   <el-option label="ABS" value="ABS"></el-option>
                   <el-option label="PET" value="PET"></el-option>
                   <el-option label="PP" value="PP"></el-option>
@@ -21,11 +20,11 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="Color">
-                <el-input v-model="form.color"></el-input>
+                <el-input v-model="part.color"></el-input>
               </el-form-item>
               <el-form-item label="Weight">
                 <el-input-number
-                  v-model="form.weight"
+                  v-model="part.weight"
                   :precision="2"
                   :step="0.01"
                 />
@@ -34,8 +33,12 @@
           </el-row>
           <el-row type="flex" class="row-bg" justify="end">
             <el-col class="pull-right">
-              <el-button type="primary" icon="el-icon-plus" @click="addPart">
-                Save
+              <el-button
+                type="primary"
+                icon="el-icon-check"
+                @click="updatePart"
+              >
+                Update
               </el-button>
               <el-button @click="goBack">Cancel</el-button>
             </el-col>
@@ -50,23 +53,31 @@
 import gql from 'graphql-tag';
 
 export default {
-  name: 'AddPart',
+  name: 'EditPart',
   data: function() {
     return {
-      form: {
-        name: '',
-        material: '',
-        color: '',
-        weight: 0.0
-      },
-      addPartMutation: gql`
-        mutation addPart(
-          $name: String!
-          $material: String!
-          $weight: Decimal!
+      part: {},
+      partQuery: gql`
+        query part($partId: String!) {
+          part(partId: $partId) {
+            id
+            name
+            material
+            color
+            weight
+          }
+        }
+      `,
+      updatePartMutation: gql`
+        mutation updatePart(
+          $partId: String!
+          $name: String
+          $material: String
+          $weight: Decimal
           $color: String
         ) {
-          addPart(
+          updatePart(
+            partId: $partId
             name: $name
             material: $material
             weight: $weight
@@ -84,19 +95,41 @@ export default {
       `
     };
   },
+  created() {
+    this.$apollo
+      .query({
+        query: this.partQuery,
+        variables: {
+          partId: this.$route.params.partId
+        }
+      })
+      .then(data => {
+        if (data.errors) {
+          console.log(data.errors);
+          alert('Some Error Occured');
+        } else {
+          this.part = data.data.part;
+        }
+        return data;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  },
   methods: {
     goBack() {
       this.$router.go(-1);
     },
-    addPart() {
+    updatePart() {
       this.$apollo
         .mutate({
-          mutation: this.addPartMutation,
+          mutation: this.updatePartMutation,
           variables: {
-            name: this.form.name,
-            material: this.form.material,
-            weight: this.form.weight,
-            color: this.form.color
+            partId: this.part.id,
+            name: this.part.name,
+            material: this.part.material,
+            weight: this.part.weight,
+            color: this.part.color
           }
         })
         .then(data => {

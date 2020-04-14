@@ -30,9 +30,48 @@
           <el-table-column label="Material" prop="material"></el-table-column>
           <el-table-column type="expand">
             <template slot-scope="props">
-              <p>Id: {{ props.row.id }}</p>
-              <p>Weight: {{ props.row.weight }} grams</p>
-              <p>Color: {{ props.row.color }}</p>
+              <el-row type="flex" justify="end" class="space-below">
+                <el-button
+                  type="warning"
+                  @click="editPart(props.row.id)"
+                  size="mini"
+                  icon="el-icon-edit"
+                  >Edit</el-button
+                >
+              </el-row>
+              <el-row>
+                <el-form label-width="100px" size="mini">
+                  <el-col :xs="24" :sm="12">
+                    <el-form-item label="Name">
+                      <el-input v-model="props.row.name" disabled="" />
+                    </el-form-item>
+                    <el-form-item label="Material">
+                      <el-input v-model="props.row.material" disabled="" />
+                    </el-form-item>
+                    <el-form-item label="Color">
+                      <el-input v-model="props.row.color" disabled="" />
+                    </el-form-item>
+                    <el-form-item label="Weight">
+                      <el-input v-model="props.row.weight" disabled="">
+                        <template slot="append">grams</template>
+                      </el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :xs="24" :sm="12">
+                    <el-table
+                      :data="props.row.moulds"
+                      border
+                      class="mini-table right-table"
+                    >
+                      <el-table-column label="Moulds">
+                        <el-table-column type="index" />
+                        <el-table-column label="Name" prop="name" />
+                        <el-table-column label="Cavity" prop="cavity" />
+                      </el-table-column>
+                    </el-table>
+                  </el-col>
+                </el-form>
+              </el-row>
             </template>
           </el-table-column>
         </el-table>
@@ -55,6 +94,11 @@ export default {
           material
           color
           weight
+          moulds {
+            id
+            name
+            cavity
+          }
         }
       }
     `
@@ -65,6 +109,12 @@ export default {
     },
     onRefresh() {
       this.$apollo.queries.parts.refetch();
+    },
+    editPart(partId) {
+      this.$router.push({
+        name: 'EditPart',
+        params: { partId: partId }
+      });
     }
   }
 };
