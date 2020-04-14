@@ -31,9 +31,48 @@
           <el-table-column label="model" prop="model"></el-table-column>
           <el-table-column type="expand">
             <template slot-scope="props">
-              <p>Id: {{ props.row.id }}</p>
-              <p>Clamping Capacity: {{ props.row.clampingCapacity }} kN</p>
-              <p>Injection Volume: {{ props.row.injectionVolume }} CC</p>
+              <el-row type="flex" justify="end" class="space-below">
+                <el-button
+                  type="warning"
+                  @click="editMachine(props.row.id)"
+                  size="mini"
+                  icon="el-icon-edit"
+                  >Edit</el-button
+                >
+              </el-row>
+              <el-row>
+                <el-form label-width="100px" size="mini">
+                  <el-col :xs="24" :sm="12">
+                    <el-form-item label="Name">
+                      <el-input v-model="props.row.name" disabled="" />
+                    </el-form-item>
+                    <el-form-item label="Make">
+                      <el-input v-model="props.row.make" disabled="" />
+                    </el-form-item>
+                    <el-form-item label="Model">
+                      <el-input v-model="props.row.model" disabled="" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :xs="24" :sm="12">
+                    <el-form-item label="Company">
+                      <el-input v-model="props.row.company.name" disabled="" />
+                    </el-form-item>
+                    <el-form-item label="Clamping Capacity">
+                      <el-input
+                        v-model="props.row.clampingCapacity"
+                        disabled=""
+                      >
+                        <template slot="append">kN</template>
+                      </el-input>
+                    </el-form-item>
+                    <el-form-item label="Injection Volume">
+                      <el-input v-model="props.row.injectionVolume" disabled="">
+                        <template slot="append">CC</template>
+                      </el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-form>
+              </el-row>
             </template>
           </el-table-column>
         </el-table>
@@ -57,6 +96,10 @@ export default {
           model
           clampingCapacity
           injectionVolume
+          company {
+            id
+            name
+          }
         }
       }
     `
@@ -67,6 +110,12 @@ export default {
     },
     onRefresh() {
       this.$apollo.queries.machines.refetch();
+    },
+    editMachine(machineId) {
+      this.$router.push({
+        name: 'EditMachine',
+        params: { machineId: machineId }
+      });
     }
   }
 };

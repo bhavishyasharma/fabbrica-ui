@@ -4,6 +4,7 @@ import Home from '../views/Home.vue';
 import EmptyRouter from '../views/EmptyRouter.vue';
 import MachineList from '../views/machine/MachineList.vue';
 import AddMachine from '../views/machine/AddMachine.vue';
+import EditMachine from '../views/machine/EditMachine.vue';
 import MouldList from '../views/mould/MouldList.vue';
 import AddMould from '../views/mould/AddMould.vue';
 import EditMould from '../views/mould/EditMould.vue';
@@ -47,6 +48,14 @@ const routes = [
             path: 'add',
             name: 'AddMachine',
             component: AddMachine,
+            meta: {
+              navIndex: '2'
+            }
+          },
+          {
+            path: 'edit/:machineId',
+            name: 'EditMachine',
+            component: EditMachine,
             meta: {
               navIndex: '2'
             }
