@@ -37,3 +37,9 @@
 .el-form-item--mini .el-form-item__label {
   line-height: 20px;
 }
+
+.el-form-item__label {
+  line-height: 20px;
+  min-height: 40px;
+  padding-top: 10px;
+}

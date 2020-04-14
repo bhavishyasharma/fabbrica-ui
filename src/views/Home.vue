@@ -23,13 +23,16 @@
           <el-menu-item index="4" :route="{ name: 'PartList' }">
             Parts
           </el-menu-item>
-          <el-menu-item index="5" :route="{ name: 'CompanyList' }">
+          <el-menu-item index="5" :route="{ name: 'VisualizationList' }">
+              Visualizations
+            </el-menu-item>
+          <el-menu-item index="6" :route="{ name: 'CompanyList' }">
             Companies
           </el-menu-item>
-          <el-menu-item index="6" :route="{ name: 'UserList' }">
+          <el-menu-item index="7" :route="{ name: 'UserList' }">
             Users
           </el-menu-item>
-          <el-submenu index="7" class="pull-right">
+          <el-submenu index="8" class="pull-right">
             <template slot="title">
               {{ username }}
               <el-avatar>user</el-avatar>
@@ -67,13 +70,16 @@
             <el-menu-item index="4" :route="{ name: 'PartList' }">
               Parts
             </el-menu-item>
-            <el-menu-item index="5" :route="{ name: 'CompanyList' }">
+            <el-menu-item index="5" :route="{ name: 'VisualizationList' }">
+              Visualizations
+            </el-menu-item>
+            <el-menu-item index="6" :route="{ name: 'CompanyList' }">
               Companies
             </el-menu-item>
-            <el-menu-item index="6" :route="{ name: 'UserList' }">
+            <el-menu-item index="7" :route="{ name: 'UserList' }">
               Users
             </el-menu-item>
-            <el-submenu index="7">
+            <el-submenu index="8">
               <template slot="title">
                 My Profile
               </template>

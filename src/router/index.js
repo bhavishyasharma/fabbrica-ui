@@ -11,6 +11,9 @@ import EditMould from '../views/mould/EditMould.vue';
 import PartList from '../views/part/PartList.vue';
 import AddPart from '../views/part/AddPart.vue';
 import EditPart from '../views/part/EditPart.vue';
+import VisualizationList from '../views/visualization/VisualizationList.vue';
+import AddVisualization from '../views/visualization/AddVisualization.vue';
+import EditVisualization from '../views/visualization/EditVisualization.vue';
 import CompanyList from '../views/company/CompanyList.vue';
 import AddCompany from '../views/company/AddCompany.vue';
 import EditCompany from '../views/company/EditCompany.vue';
@@ -123,6 +126,36 @@ const routes = [
         ]
       },
       {
+        path: 'visualization',
+        component: EmptyRouter,
+        children: [
+          {
+            path: '',
+            name: 'VisualizationList',
+            component: VisualizationList,
+            meta: {
+              navIndex: '5'
+            }
+          },
+          {
+            path: 'add',
+            name: 'AddVisualization',
+            component: AddVisualization,
+            meta: {
+              navIndex: '5'
+            }
+          },
+          {
+            path: 'edit/:visualizationId',
+            name: 'EditVisualization',
+            component: EditVisualization,
+            meta: {
+              navIndex: '5'
+            }
+          }
+        ]
+      },
+      {
         path: 'company',
         component: EmptyRouter,
         children: [
@@ -131,7 +164,7 @@ const routes = [
             name: 'CompanyList',
             component: CompanyList,
             meta: {
-              navIndex: '5'
+              navIndex: '6'
             }
           },
           {
@@ -139,7 +172,7 @@ const routes = [
             name: 'AddCompany',
             component: AddCompany,
             meta: {
-              navIndex: '5'
+              navIndex: '6'
             }
           },
           {
@@ -147,7 +180,7 @@ const routes = [
             name: 'EditCompany',
             component: EditCompany,
             meta: {
-              navIndex: '5'
+              navIndex: '6'
             }
           }
         ]
@@ -161,7 +194,7 @@ const routes = [
             name: 'UserList',
             component: UserList,
             meta: {
-              navIndex: '6'
+              navIndex: '7'
             }
           },
           {
@@ -169,7 +202,7 @@ const routes = [
             name: 'AddUser',
             component: AddUser,
             meta: {
-              navIndex: '6'
+              navIndex: '7'
             }
           },
           {
@@ -177,7 +210,7 @@ const routes = [
             name: 'EditUser',
             component: EditUser,
             meta: {
-              navIndex: '6'
+              navIndex: '7'
             }
           }
         ]
