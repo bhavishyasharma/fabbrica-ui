@@ -11,6 +11,16 @@
               <el-form-item label="Part Name">
                 <el-input v-model="form.name"></el-input>
               </el-form-item>
+              <el-form-item label="Company">
+                <el-select v-model="form.company" placeholder="Select">
+                  <el-option
+                    v-for="company in companies"
+                    v-bind:key="company.id"
+                    :value="company.id"
+                    :label="company.name"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
               <el-form-item label="Material">
                 <el-select v-model="form.material" placeholder="Select">
                   <el-option label="ABS" value="ABS"></el-option>
@@ -51,10 +61,21 @@ import gql from 'graphql-tag';
 
 export default {
   name: 'AddPart',
+  apollo: {
+    companies: gql`
+      query {
+        companies {
+          id
+          name
+        }
+      }
+    `
+  },
   data: function() {
     return {
       form: {
         name: '',
+        company : '',
         material: '',
         color: '',
         weight: 0.0
@@ -62,12 +83,14 @@ export default {
       addPartMutation: gql`
         mutation addPart(
           $name: String!
+          $company: String!
           $material: String!
           $weight: Decimal!
           $color: String
         ) {
           addPart(
             name: $name
+            company: $company
             material: $material
             weight: $weight
             color: $color
@@ -94,6 +117,7 @@ export default {
           mutation: this.addPartMutation,
           variables: {
             name: this.form.name,
+            company: this.form.company,
             material: this.form.material,
             weight: this.form.weight,
             color: this.form.color

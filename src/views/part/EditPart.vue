@@ -10,6 +10,16 @@
               <el-form-item label="Part Name">
                 <el-input v-model="part.name"></el-input>
               </el-form-item>
+              <el-form-item label="Company">
+                <el-select v-model="part.company" placeholder="Select">
+                  <el-option
+                    v-for="company in companies"
+                    v-bind:key="company.id"
+                    :value="company.id"
+                    :label="company.name"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
               <el-form-item label="Material">
                 <el-select v-model="part.material" placeholder="Select">
                   <el-option label="ABS" value="ABS"></el-option>
@@ -54,6 +64,16 @@ import gql from 'graphql-tag';
 
 export default {
   name: 'EditPart',
+  apollo: {
+    companies: gql`
+      query {
+        companies {
+          id
+          name
+        }
+      }
+    `
+  },
   data: function() {
     return {
       part: {},
@@ -62,6 +82,10 @@ export default {
           part(partId: $partId) {
             id
             name
+            company {
+              id
+              name
+            }
             material
             color
             weight
@@ -72,6 +96,7 @@ export default {
         mutation updatePart(
           $partId: String!
           $name: String
+          $company: String
           $material: String
           $weight: Decimal
           $color: String
@@ -79,6 +104,7 @@ export default {
           updatePart(
             partId: $partId
             name: $name
+            company: $company
             material: $material
             weight: $weight
             color: $color
@@ -109,6 +135,9 @@ export default {
           alert('Some Error Occured');
         } else {
           this.part = data.data.part;
+          if(this.part.company) {
+            this.part.company = this.part.company.id
+          }
         }
         return data;
       })
@@ -127,6 +156,7 @@ export default {
           variables: {
             partId: this.part.id,
             name: this.part.name,
+            company: this.part.company,
             material: this.part.material,
             weight: this.part.weight,
             color: this.part.color

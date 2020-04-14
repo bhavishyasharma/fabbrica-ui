@@ -48,6 +48,9 @@
                     <el-form-item label="Name">
                       <el-input v-model="props.row.name" disabled="" />
                     </el-form-item>
+                    <el-form-item label="Company" v-if="props.row.company">
+                      <el-input v-model="props.row.company.name" disabled="" />
+                    </el-form-item>
                     <el-form-item label="Part">
                       <el-input v-model="props.row.part.name" disabled="" />
                     </el-form-item>
@@ -83,6 +86,10 @@ export default {
         moulds {
           id
           name
+          company {
+            id
+            name
+          }
           part {
             id
             name

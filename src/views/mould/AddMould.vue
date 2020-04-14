@@ -10,6 +10,16 @@
               <el-form-item label="Mould Name">
                 <el-input v-model="form.name"></el-input>
               </el-form-item>
+              <el-form-item label="Company">
+                <el-select v-model="form.company" placeholder="Select">
+                  <el-option
+                    v-for="company in companies"
+                    v-bind:key="company.id"
+                    :value="company.id"
+                    :label="company.name"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
               <el-form-item label="Part">
                 <el-select v-model="form.part" placeholder="Select">
                   <el-option
@@ -65,12 +75,21 @@ export default {
           name
         }
       }
+    `,
+    companies: gql`
+      query {
+        companies {
+          id
+          name
+        }
+      }
     `
   },
   data: function() {
     return {
       form: {
         name: '',
+        company : '',
         part: '',
         cavity: '',
         runnerWeight: 0.0
@@ -78,12 +97,14 @@ export default {
       addMouldMutation: gql`
         mutation addMould(
           $name: String!
+          $company: String!
           $part: String!
           $cavity: Int!
           $runnerWeight: Decimal!
         ) {
           addMould(
             name: $name
+            company: $company
             part: $part
             cavity: $cavity
             runnerWeight: $runnerWeight
@@ -113,6 +134,7 @@ export default {
           mutation: this.addMouldMutation,
           variables: {
             name: this.form.name,
+            company: this.form.company,
             part: this.form.part,
             cavity: this.form.cavity,
             runnerWeight: this.form.runnerWeight

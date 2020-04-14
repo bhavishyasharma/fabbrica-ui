@@ -45,6 +45,9 @@
                     <el-form-item label="Name">
                       <el-input v-model="props.row.name" disabled="" />
                     </el-form-item>
+                    <el-form-item label="Company" v-if="props.row.company">
+                      <el-input v-model="props.row.company.name" disabled="" />
+                    </el-form-item>
                     <el-form-item label="Material">
                       <el-input v-model="props.row.material" disabled="" />
                     </el-form-item>
@@ -91,6 +94,10 @@ export default {
         parts {
           id
           name
+          company {
+            id
+            name
+          }
           material
           color
           weight

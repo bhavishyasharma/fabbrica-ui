@@ -10,6 +10,16 @@
               <el-form-item label="Mould Name">
                 <el-input v-model="mould.name"></el-input>
               </el-form-item>
+              <el-form-item label="Company">
+                <el-select v-model="mould.company" placeholder="Select">
+                  <el-option
+                    v-for="company in companies"
+                    v-bind:key="company.id"
+                    :value="company.id"
+                    :label="company.name"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
               <el-form-item label="Part">
                 <el-select v-model="mould.part" placeholder="Select">
                   <el-option
@@ -68,6 +78,14 @@ export default {
           id
           name
         }
+      },
+    `,
+    companies: gql`
+      query {
+        companies {
+          id
+          name
+        }
       }
     `
   },
@@ -81,6 +99,10 @@ export default {
           mould(mouldId: $mouldId) {
             id
             name
+            company {
+              id
+              name
+            }
             part {
               id
               name
@@ -94,6 +116,7 @@ export default {
         mutation updateMould(
           $mouldId: String!
           $name: String
+          $company: String
           $part: String
           $cavity: Int
           $runnerWeight: Decimal
@@ -101,6 +124,7 @@ export default {
           updateMould(
             mouldId: $mouldId
             name: $name
+            company: $company
             part: $part
             cavity: $cavity
             runnerWeight: $runnerWeight
@@ -108,6 +132,10 @@ export default {
             mould {
               id
               name
+              company {
+                id
+                name
+              }
               part {
                 id
                 name
@@ -135,6 +163,9 @@ export default {
         } else {
           this.mould = data.data.mould;
           this.mould.part = this.mould.part.id;
+          if(this.mould.company) {
+            this.mould.company = this.mould.company.id
+          }
         }
         return data;
       })
@@ -153,6 +184,7 @@ export default {
           variables: {
             mouldId: this.mould.id,
             name: this.mould.name,
+            company: this.mould.company,
             part: this.mould.part,
             cavity: this.mould.cavity,
             runnerWeight: this.mould.runnerWeight
