@@ -30,9 +30,37 @@
           <el-table-column label="Part" prop="part.name"></el-table-column>
           <el-table-column type="expand">
             <template slot-scope="props">
-              <p>Id: {{ props.row.id }}</p>
-              <p>Weight: {{ props.row.cavity }}</p>
-              <p>Color: {{ props.row.runnerWeight }} grams</p>
+              <el-row type="flex" justify="end" class="space-below">
+                <el-button
+                  type="warning"
+                  @click="editMould(props.row.id)"
+                  size="mini"
+                  icon="el-icon-edit"
+                  >Edit</el-button
+                >
+              </el-row>
+              <el-row>
+                <el-form label-width="100px" size="mini">
+                  <el-col :xs="24" :sm="12">
+                    <el-form-item label="Name">
+                      <el-input v-model="props.row.name" disabled="" />
+                    </el-form-item>
+                    <el-form-item label="Part">
+                      <el-input v-model="props.row.part.name" disabled="" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :xs="24" :sm="12">
+                    <el-form-item label="Cavity">
+                      <el-input v-model="props.row.cavity" disabled="" />
+                    </el-form-item>
+                    <el-form-item label="Runner Weight">
+                      <el-input v-model="props.row.runnerWeight" disabled="">
+                        <template slot="append">grams</template>
+                      </el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-form>
+              </el-row>
             </template>
           </el-table-column>
         </el-table>
@@ -68,6 +96,12 @@ export default {
     },
     onRefresh() {
       this.$apollo.queries.moulds.refetch();
+    },
+    editMould(mouldId) {
+      this.$router.push({
+        name: 'EditMould',
+        params: { mouldId: mouldId }
+      });
     }
   }
 };
