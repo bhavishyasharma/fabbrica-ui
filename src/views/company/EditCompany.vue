@@ -71,7 +71,7 @@
 import gql from 'graphql-tag';
 
 export default {
-  name: 'AddCompany',
+  name: 'EditCompany',
   apollo: {
     users: gql`
       query {

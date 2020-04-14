@@ -42,6 +42,9 @@
               <el-row>
                 <el-form label-width="100px" size="mini">
                   <el-col :xs="24" :sm="12">
+                    <el-form-item label="Id">
+                      <el-input v-model="props.row.id" disabled="" />
+                    </el-form-item>
                     <el-form-item label="Name">
                       <el-input v-model="props.row.name" disabled="" />
                     </el-form-item>
