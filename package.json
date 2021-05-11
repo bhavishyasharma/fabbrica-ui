@@ -10,7 +10,7 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "element-ui": "^2.4.5",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "vue": "^2.6.11",
     "vue-apollo": "^3.0.0-beta.11",
     "vue-lodash": "^2.1.2",
